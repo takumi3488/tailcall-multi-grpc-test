@@ -6,20 +6,30 @@ type Query {
   user(id: Int!): User! @expr(body: {id: "{{.args.id}}"})
 }
 
-type User {
+type User
+  @addField(name: "name", path: ["nameResponse", "name"])
+  @addField(name: "age", path: ["ageResponse", "age"]) {
   id: Int!
-  name: String!
+  nameResponse: NameResponse
     @grpc(
       url: "http://localhost:50051"
       method: "name.NameService.GetName"
       body: {id: "{{.value.id}}"}
-      select: "{{.name}}"
     )
-  age: Int!
+    @modify(omit: true)
+  ageResponse: AgeResponse
     @grpc(
       url: "http://localhost:50052"
       method: "age.AgeService.GetAge"
       body: {id: "{{.value.id}}"}
-      select: "{{.age}}"
     )
+    @modify(omit: true)
+}
+
+type NameResponse {
+  name: String
+}
+
+type AgeResponse {
+  age: Int
 }
