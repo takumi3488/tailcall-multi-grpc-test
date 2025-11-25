@@ -1,0 +1,9 @@
+links:
+- id: age
+  src: proto/age/age.proto
+  type: Protobuf
+- id: name
+  src: proto/name/name.proto
+  type: Protobuf
+- id: main
+  src: main.graphql

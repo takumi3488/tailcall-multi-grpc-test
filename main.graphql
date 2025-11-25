@@ -1,0 +1,25 @@
+schema {
+  query: Query
+}
+
+type Query {
+  user(id: Int!): User! @expr(body: {id: "{{.args.id}}"})
+}
+
+type User {
+  id: Int!
+  name: String!
+    @grpc(
+      url: "http://localhost:50051"
+      method: "name.NameService.GetName"
+      body: {id: "{{.value.id}}"}
+      select: "{{.name}}"
+    )
+  age: Int!
+    @grpc(
+      url: "http://localhost:50052"
+      method: "age.AgeService.GetAge"
+      body: {id: "{{.value.id}}"}
+      select: "{{.age}}"
+    )
+}

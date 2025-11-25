@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package name;
+
+option go_package = "github.com/takumi/tailcall-multi-grpc-test/gen/go/name";
+
+service NameService {
+  rpc GetName(GetNameRequest) returns (GetNameResponse);
+}
+
+message GetNameRequest {
+  int32 id = 1;
+}
+
+message GetNameResponse {
+  string name = 1;
+}

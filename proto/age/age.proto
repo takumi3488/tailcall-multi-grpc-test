@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package age;
+
+option go_package = "github.com/takumi/tailcall-multi-grpc-test/gen/go/age";
+
+service AgeService {
+  rpc GetAge(GetAgeRequest) returns (GetAgeResponse);
+}
+
+message GetAgeRequest {
+  int32 id = 1;
+}
+
+message GetAgeResponse {
+  int32 age = 1;
+}
